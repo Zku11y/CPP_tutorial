@@ -10,6 +10,7 @@ private:
 
 public:
     void announce(void);
+    Zombie(std::string str);
 };
 
 Zombie* newZombie( std::string name );
