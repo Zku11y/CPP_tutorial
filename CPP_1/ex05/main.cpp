@@ -1,14 +1,11 @@
 #include <iostream>
 #include <string>
-
-void PrintValue(std::string str)
-{
-    std::cout << "Value : " << str << std::endl;
-}
+#include "Harl.hpp"
 
 int main(){
-
-    std::string str = "PrintValue";
-    auto fct_ptr = str;
-    fct_ptr("testing");
+    Harl harl;
+    harl.complain("debug");
+    harl.complain("info");
+    harl.complain("warning");
+    harl.complain("error");
 }

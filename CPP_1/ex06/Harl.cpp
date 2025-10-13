@@ -27,15 +27,33 @@ typedef  void(Harl::*fct_ptr)();
 
 void Harl::complain(std::string level){
 
-    std::map<std::string, fct_ptr> ft_map;
-    ft_map["debug"] = &Harl::debug;
-    ft_map["info"] = &Harl::info;
-    ft_map["warning"] = &Harl::warning;
-    ft_map["error"] = &Harl::error;
+    ft_lvl lvl;
 
-    std::map<std::string, fct_ptr>::iterator tmp = ft_map.find(level);
-    if(tmp != ft_map.end()){
-        fct_ptr f = tmp->second;
-        (this->*f)();
-    }
+    if(!level.compare("debug")){lvl = DEBUG;}
+    else if(!level.compare("info")){lvl = INFO;}
+    else if(!level.compare("warning")){lvl = WARNING;}
+    else if(!level.compare("error")){lvl = ERROR;}
+    else{lvl = UNKNOWN;}
+
+    switch (lvl){
+        case UNKNOWN:
+            std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
+            break;
+
+        case DEBUG:
+            std::cout << "[ DEBUG ]" << std::endl;
+            debug();
+
+        case INFO:
+            std::cout << "[ INFO ]" << std::endl;
+            info();
+
+        case WARNING:
+            std::cout << "[ WARNING ]" << std::endl;
+            warning();
+
+        case ERROR:
+            std::cout << "[ ERROR ]" << std::endl;
+            error();
+    };
 }
