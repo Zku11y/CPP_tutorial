@@ -1,7 +1,19 @@
-#pragma once
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Fixed.hpp                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdakni <mdakni@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/14 16:15:41 by mdakni            #+#    #+#             */
+/*   Updated: 2026/02/14 16:30:30 by mdakni           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef FIXED_HPP
+#define FIXED_HPP
 
 #include <iostream>
-#include <string>
 
 class Fixed{
 private:
@@ -16,3 +28,5 @@ public:
     int getRawBits(void) const;
     void setRawBits(int const raw);
 };
+
+#endif

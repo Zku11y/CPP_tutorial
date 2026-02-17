@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdakni <mdakni@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/10 11:06:20 by mdakni            #+#    #+#             */
+/*   Updated: 2026/02/10 11:36:24 by mdakni           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Zombie.hpp"
 
 int main(){
-    Zombie* z = newZombie("nigger");
+    Zombie* z = newZombie("a dude");
     z->announce();
-    randomChump("random_nigger");
+    randomChump("a random dude");
     delete(z);
 }

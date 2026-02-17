@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Fixed.cpp                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdakni <mdakni@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/14 16:15:37 by mdakni            #+#    #+#             */
+/*   Updated: 2026/02/17 15:30:49 by mdakni           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Fixed.hpp"
 
 Fixed::Fixed(): n(0){
@@ -25,4 +37,6 @@ void Fixed::setRawBits(int const raw){
     n = raw;
 }
 
-Fixed::~Fixed(){std::cout << "Destructor called" << std::endl;}
+Fixed::~Fixed(){
+    std::cout << "Destructor called" << std::endl;
+}

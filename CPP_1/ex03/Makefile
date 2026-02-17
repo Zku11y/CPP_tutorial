@@ -1,4 +1,4 @@
-NAME = reference
+NAME = weapon
 
 SRC = ./main.cpp ./HumanA.cpp ./HumanB.cpp ./Weapon.cpp
 

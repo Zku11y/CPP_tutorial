@@ -1,4 +1,14 @@
-#pragma once
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ClapTrap.hpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdakni <mdakni@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/17 12:47:39 by mdakni            #+#    #+#             */
+/*   Updated: 2026/02/17 15:27:22 by mdakni           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef CLAPTRAP_HPP
 #define CLAPTRAP_HPP
@@ -16,16 +26,16 @@ private:
   int DMG;
 
 public:
-  ClapTrap(std::string name)
-    : Name(name), HP(10), Energy(10), DMG(0){
-    std::cout << "ClapTrap Constructor called\n";
-  }
-  ~ClapTrap(){
-    std::cout << "ClapTrap Destructor called\n";
-  }
+  ClapTrap();
+  ClapTrap(const ClapTrap &other);
+  ClapTrap(std::string name);
+  ClapTrap &operator=(const ClapTrap &other);
+  ~ClapTrap();
+
   void attack(const std::string& target);
   void takeDamage(unsigned int amount);
   void beRepaired(unsigned int amount);
+
 };
 
 #endif

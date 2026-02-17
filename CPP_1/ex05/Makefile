@@ -1,4 +1,4 @@
-NAME = function
+NAME = harl
 
 SRC = ./main.cpp ./Harl.cpp
 

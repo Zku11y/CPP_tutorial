@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Harl.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdakni <mdakni@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/10 15:49:15 by mdakni            #+#    #+#             */
+/*   Updated: 2026/02/14 18:05:22 by mdakni           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Harl.hpp"
 
 void Harl::debug(){
@@ -27,15 +39,32 @@ typedef  void(Harl::*fct_ptr)();
 
 void Harl::complain(std::string level){
 
-    std::map<std::string, fct_ptr> ft_map;
-    ft_map["debug"] = &Harl::debug;
-    ft_map["info"] = &Harl::info;
-    ft_map["warning"] = &Harl::warning;
-    ft_map["error"] = &Harl::error;
+    std::string lvl[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
+    void (Harl::*func[])(void) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
 
-    std::map<std::string, fct_ptr>::iterator tmp = ft_map.find(level);
-    if(tmp != ft_map.end()){
-        fct_ptr f = tmp->second;
-        (this->*f)();
-    }
+    int i = 0;
+    while(level != lvl[i] && i < 4)
+        i++;
+
+    switch (i){
+
+        case 0:
+            (this->*func[0])();
+            break;
+
+        case 1:
+            (this->*func[1])();
+            break;
+
+        case 2:
+            (this->*func[2])();
+            break;
+
+        case 3:
+            (this->*func[3])();
+            break;
+
+        default:
+            std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
+    };
 }

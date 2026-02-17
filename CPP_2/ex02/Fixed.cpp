@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Fixed.cpp                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdakni <mdakni@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/14 17:17:13 by mdakni            #+#    #+#             */
+/*   Updated: 2026/02/14 17:33:41 by mdakni           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Fixed.hpp"
 
 Fixed::Fixed(): n(0){
@@ -12,13 +24,17 @@ Fixed::Fixed(const int other): n(other * (1 << shift)){
     std::cout << "Int constructor called" << std::endl;
 }
 
-Fixed::Fixed(const float other): n(round(other * (1 << shift))){
+Fixed::Fixed(const float other): n((int)roundf(other * (1 << shift))){
     std::cout << "Float constructor called" << std::endl;
 }
 
-float Fixed::toFloat(void) const{return ((float)n / (1 << shift));}
+float Fixed::toFloat(void) const{
+  return ((float)((float)n / (1 << shift)));
+}
 
-int Fixed::toInt(void) const{return (n / (1 << shift));}
+int Fixed::toInt(void) const{
+  return ((int)((float)n / (1 << shift)));
+}
 
 Fixed &Fixed::operator=(const Fixed &other){
     if(this != &other)
@@ -136,7 +152,9 @@ const Fixed& Fixed::max(const Fixed &n1, const Fixed &n2){
   return n2;
 }
 
-Fixed::~Fixed(){std::cout << "Destructor called" << std::endl;}
+Fixed::~Fixed(){
+  std::cout << "Destructor called" << std::endl;
+}
 
 std::ostream& operator<<(std::ostream& os,const Fixed& f){
     os << f.toFloat();

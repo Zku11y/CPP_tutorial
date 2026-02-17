@@ -1,16 +1,24 @@
-#include <iostream>
-#include <string>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdakni <mdakni@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/14 17:55:44 by mdakni            #+#    #+#             */
+/*   Updated: 2026/02/14 19:45:35 by mdakni           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Fixed.hpp"
 
 int main( void ) {
-Fixed a;
-Fixed b( a );
-Fixed c;
+Fixed *a = new Fixed();
 
-c = b;
 
-std::cout << a.getRawBits() << std::endl;
-std::cout << b.getRawBits() << std::endl;
-std::cout << c.getRawBits() << std::endl;
+
+a = a;
+
 return 0;
+
 }

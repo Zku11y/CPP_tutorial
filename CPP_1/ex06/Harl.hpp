@@ -1,15 +1,19 @@
-#pragma once
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Harl.hpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdakni <mdakni@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/10 20:55:37 by mdakni            #+#    #+#             */
+/*   Updated: 2026/02/10 20:55:39 by mdakni           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef HARL_HPP
+#define HARL_HPP
 #include <iostream>
 #include <string>
-#include <map>
-
-enum ft_lvl {
-    DEBUG,
-    INFO,
-    WARNING,
-    ERROR,
-    UNKNOWN
-};
 
 class Harl{
 private:
@@ -21,3 +25,5 @@ private:
 public:
     void complain(std::string level);
 };
+
+#endif

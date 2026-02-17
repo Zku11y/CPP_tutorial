@@ -1,4 +1,4 @@
-NAME = function
+NAME = harlFilter
 
 SRC = ./main.cpp ./Harl.cpp
 

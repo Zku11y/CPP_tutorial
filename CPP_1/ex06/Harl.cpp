@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Harl.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdakni <mdakni@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/10 20:55:43 by mdakni            #+#    #+#             */
+/*   Updated: 2026/02/10 21:01:20 by mdakni           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Harl.hpp"
 
 void Harl::debug(){
@@ -27,33 +39,36 @@ typedef  void(Harl::*fct_ptr)();
 
 void Harl::complain(std::string level){
 
-    ft_lvl lvl;
+    std::string lvl[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
+    void (Harl::*func[])(void) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
 
-    if(!level.compare("debug")){lvl = DEBUG;}
-    else if(!level.compare("info")){lvl = INFO;}
-    else if(!level.compare("warning")){lvl = WARNING;}
-    else if(!level.compare("error")){lvl = ERROR;}
-    else{lvl = UNKNOWN;}
+    int i = 0;
+    while(level != lvl[i] && i < 4)
+        i++;
 
-    switch (lvl){
-        case UNKNOWN:
-            std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
+    switch (i){
+
+        case 0:
+            std::cout << "[ DEBUG ]" << std::endl;
+            (this->*func[0])();
+            std::cout << "\n";
+
+        case 1:
+            std::cout << "[ INFO ]" << std::endl;
+            (this->*func[1])();
+            std::cout << "\n";
+
+        case 2:
+            std::cout << "[ WARNING ]" << std::endl;
+            (this->*func[2])();
+            std::cout << "\n";
+
+        case 3:
+            std::cout << "[ ERROR ]" << std::endl;
+            (this->*func[3])();
             break;
 
-        case DEBUG:
-            std::cout << "[ DEBUG ]" << std::endl;
-            debug();
-
-        case INFO:
-            std::cout << "[ INFO ]" << std::endl;
-            info();
-
-        case WARNING:
-            std::cout << "[ WARNING ]" << std::endl;
-            warning();
-
-        case ERROR:
-            std::cout << "[ ERROR ]" << std::endl;
-            error();
+        default:
+            std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
     };
 }

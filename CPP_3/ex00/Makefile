@@ -1,4 +1,4 @@
-NAME = game
+NAME = claptrap
 
 SRC = ./ClapTrap.cpp ./main.cpp
 

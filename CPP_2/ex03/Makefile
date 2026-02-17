@@ -1,6 +1,6 @@
-NAME = fixed
+NAME = bsp
 
-SRC = ./Fixed.cpp ./main.cpp ./BSP.cpp ./Point.cpp
+SRC = ./Fixed.cpp ./main.cpp ./bsp.cpp ./Point.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
@@ -11,7 +11,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	c++ $(FLAGS) $(OBJ) -o $(NAME)
 
-%.o: %.cpp ./Fixed.hpp ./Point.hpp ./BSP.hpp
+%.o: %.cpp ./Fixed.hpp ./Point.hpp
 	c++ $(FLAGS) -c $< -o $@
 
 clean:
