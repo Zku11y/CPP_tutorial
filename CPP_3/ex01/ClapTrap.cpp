@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ClapTrap.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdakni <mdakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skully <skully@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 12:47:42 by mdakni            #+#    #+#             */
-/*   Updated: 2026/02/17 15:48:00 by mdakni           ###   ########.fr       */
+/*   Updated: 2026/02/18 17:38:41 by skully           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 ClapTrap::ClapTrap()
   :Name(""), HP(10), Energy(10), DMG(0){
-  std::cout << "ClapTrap " << this->Name << " Constructor called\n";
+  std::cout << "ClapTrap " << this->Name << " Default Constructor called\n";
 }
 
 ClapTrap::ClapTrap(std::string name)
   : Name(name), HP(10), Energy(10), DMG(0){
-  std::cout << "ClapTrap " << this->Name << " Constructor called\n";
+  std::cout << "ClapTrap " << this->Name << " Param Constructor called\n";
 }
 
 ClapTrap::ClapTrap(const ClapTrap &other)
@@ -33,6 +33,7 @@ ClapTrap &ClapTrap::operator=(const ClapTrap &other){
   this->Energy = other.Energy;
   this->DMG = other.DMG;
   std::cout << "ClapTrap " << this->Name << " Copy assignment operator called\n";
+  return *this;
 }
 
 ClapTrap::~ClapTrap(){

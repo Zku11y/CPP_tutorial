@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ScavTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdakni <mdakni@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skully <skully@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 15:48:54 by mdakni            #+#    #+#             */
-/*   Updated: 2026/02/17 15:50:59 by mdakni           ###   ########.fr       */
+/*   Updated: 2026/02/18 17:37:30 by skully           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ public:
   void attack(const std::string& target);
   void takeDamage(unsigned int amount);
   void beRepaired(unsigned int amount);
-  void guardGate(){std::cout << "ScavTrap is now in Gate Keeper mode\n";}
+  void guardGate();
 };
 
 #endif
