@@ -1,51 +1,66 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   FragTrap.cpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdakni <mdakni@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/18 19:03:06 by mdakni            #+#    #+#             */
+/*   Updated: 2026/02/18 20:31:27 by mdakni           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "FragTrap.hpp"
 
 FragTrap::FragTrap(): ClapTrap(){
-  Name = "";
-  HP = 100;
-  Energy = 100;
-  DMG = 30;
-  std::cout << "FragTrap default constructor called\n";
+  this->Name = "";
+  this->HP = 100;
+  this->Energy = 100;
+  this->DMG = 30;
+  std::cout << "FragTrap " << this->Name << " Default Constructor called\n";
 }
 
 FragTrap::FragTrap(std::string name): ClapTrap(name){
-  Name = name;
-  HP = 100;
-  Energy = 100;
-  DMG = 30;
-  std::cout << "FragTrap param constructor called\n";
+  this->Name = name;
+  this->HP = 100;
+  this->Energy = 100;
+  this->DMG = 30;
+  std::cout << "FragTrap " << this->Name << " Param Constructor called\n";
 }
 
-FragTrap::~FragTrap(){std::cout << "FragTrap destructor called\n";}
+FragTrap::FragTrap(const FragTrap &other): ClapTrap(other.Name){
+  this->Name = other.Name;
+  this->HP = other.HP;
+  this->Energy = other.Energy;
+  this->DMG = other.DMG;
+  std::cout << "FragTrap " << this->Name << " Copy Constructor called\n";
+}
 
-void FragTrap::highFiveGuys(void){
-  std::cout << "FragTrap request a High-Five from you!😄\n";
+FragTrap &FragTrap::operator=(const FragTrap &other){
+if(this != &other){
+  this->Name = other.Name;
+  this->HP = other.HP;
+  this->Energy = other.Energy;
+  this->DMG = other.DMG;
+}
+  std::cout << "FragTrap " << this->Name << " Copy assignment operator called\n";  
+  return *this;
+}
+
+FragTrap::~FragTrap() {
+  std::cout << "FragTrap " << this->Name << " Destructor called\n";
 }
 
 void FragTrap::attack(const std::string& target){
-  if(Energy > 0){
-    Energy--;
-    std::cout << "FragTrap BITCHSLAPPED " << target << " which dealt " << DMG << " damage! >:D\n";
+  if(this->Energy > 0){
+    this->Energy--;
+    std::cout << "FragTrap " << this->Name << " Hit " << target << " which dealt " << this->DMG << " damage! >:D\n";
   }
   else {
-    std::cout << "FragTrap doesn't have anymore energy X _ X\n";
+    std::cout << "FragTrap " << this->Name << " doesn't have anymore energy X _ X\n";
   }
 }
 
-void FragTrap::takeDamage(unsigned int amount){
-  if(HP - (int)amount >= 0)
-    HP -= amount;
-  else
-    HP = 0;
-  std::cout << "FragTrap got his shit rocked from receiving " << amount << " of damage, and now his HP is " << HP << " >:(\n";
-}
-
-void FragTrap::beRepaired(unsigned int amount){
-  if(Energy > 0){
-    HP += amount;
-    Energy--;
-    std::cout << "FragTrap healed his ass gaining " << amount << " HP back!, now his HP is at " << HP << " :D\n";
-  }
-  else
-    std::cout << "FragTrap doesn't have anymore energy X _ X\n";
+void FragTrap::highFiveGuys(void){
+  std::cout << "FragTrap " << this->Name << " is asking for a couple CRISP high-fives :>\n";
 }

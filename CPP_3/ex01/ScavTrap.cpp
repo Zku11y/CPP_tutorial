@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ScavTrap.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skully <skully@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mdakni <mdakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 15:48:53 by mdakni            #+#    #+#             */
-/*   Updated: 2026/02/18 17:38:57 by skully           ###   ########.fr       */
+/*   Updated: 2026/02/18 20:31:16 by mdakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,12 @@ ScavTrap::ScavTrap(const ScavTrap &other): ClapTrap(other.Name){
 }
 
 ScavTrap &ScavTrap::operator=(const ScavTrap &other){
+if(this != &other){
   this->Name = other.Name;
   this->HP = other.HP;
   this->Energy = other.Energy;
   this->DMG = other.DMG;
+}
   std::cout << "ScavTrap " << this->Name << " Copy assignment operator called\n";  
   return *this;
 }
@@ -59,24 +61,6 @@ void ScavTrap::attack(const std::string& target){
   }
 }
 
-void ScavTrap::takeDamage(unsigned int amount){
-  if(this->HP - (int)amount >= 0)
-    this->HP -= amount;
-  else
-    this->HP = 0;
-  std::cout << "ScavTrap " << this->Name << " got hit with " << amount << " damage, and now his HP is " << this->HP << " >:(\n";
-}
-
-void ScavTrap::beRepaired(unsigned int amount){
-  if(this->Energy > 0){
-    this->HP += amount;
-    this->Energy--;
-    std::cout << "ScavTrap " << this->Name << " healed himself gaining " << amount << " HP back!, now his HP is at " << this->HP << " :D\n";
-  }
-  else
-    std::cout << "ScavTrap " << this->Name << " doesn't have anymore energy X _ X\n";
-}
-
 void ScavTrap::guardGate(){
-  std::cout << "ScavTrap is now in Gate Keeper mode\n";
+  std::cout << "ScavTrap " << this->Name << " is now in Gate Keeper mode\n";
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ClapTrap.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skully <skully@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mdakni <mdakni@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 12:47:42 by mdakni            #+#    #+#             */
-/*   Updated: 2026/02/18 17:38:41 by skully           ###   ########.fr       */
+/*   Updated: 2026/02/18 20:40:13 by mdakni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,12 @@ ClapTrap::ClapTrap(const ClapTrap &other)
 }
 
 ClapTrap &ClapTrap::operator=(const ClapTrap &other){
+if(this != &other){
   this->Name = other.Name;
   this->HP = other.HP;
   this->Energy = other.Energy;
   this->DMG = other.DMG;
+}
   std::cout << "ClapTrap " << this->Name << " Copy assignment operator called\n";
   return *this;
 }

@@ -8,6 +8,7 @@ int main(){
   std::string target("person 2");
   diamondtrap.attack(target);
   diamondtrap.highFiveGuys();
+  diamondtrap.beRepaired(45);
   diamondtrap.guardGate();
   diamondtrap.whoAmI();
 }

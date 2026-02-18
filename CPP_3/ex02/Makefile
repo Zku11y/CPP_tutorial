@@ -1,4 +1,4 @@
-NAME = game
+NAME = fragtrap
 
 SRC = ./ClapTrap.cpp ./main.cpp ./ScavTrap.cpp ./FragTrap.cpp
 
