@@ -10,6 +10,9 @@ Node *get_tree(Point const &a, Point const &b, Point const &c){
   Node* list = new Node(a, b);
   Node *next;
   float side = get_side(a, b, c);
+  if(side == 0){
+    return NULL;
+  }
   if(side > 0){
     list->left = new Node(b, c);
     next = list->left;
@@ -56,6 +59,8 @@ void free_list(Node *list, int &Dir){
 bool bsp(Point const a, Point const b, Point const c, Point const point){
   Node *list = get_tree(a, b, c);
   int Dir;
+  if(list == NULL)
+    return false;
   if(list->right != NULL)
     Dir = RIGHT;
   else

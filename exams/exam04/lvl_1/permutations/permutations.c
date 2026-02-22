@@ -1,41 +1,57 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
+#include <unistd.h>
 
-
-void check_dups(char *str1) {
+void ft_solve(char *buffer){
   int i = 0;
-  while(str1[i]){
+  while(buffer[i]){
     int j = i + 1;
-    while(str1[j]){
-      if(str1[j] == str1[i])
-        return;
+    while(buffer[j]){
+      if(buffer[j] < buffer[i]){
+        char tmp = buffer[j];
+        buffer[j] = buffer[i];
+        buffer[i] = tmp;
+      }
       j++;
     }
     i++;
   }
-  puts(str1);
 }
 
-void permutations(char *og, char *buffer, int size, int n){
-  if(n == size) {
-    check_dups(buffer);
+void ft_queens(char *og, char *buffer, int *lock, int size, int n){
+  if(n == size){
+    printf("%s\n", buffer);
     return;
   }
+
   int i = 0;
-  while(i < size) {
+  while(i < size){
+    if(lock[i]){
+      i++;
+      continue;
+    }
+
+    lock[i] = 1;
     buffer[n] = og[i];
-    permutations(og, buffer, size, n + 1);
+    ft_queens(og, buffer, lock, size, n + 1);
+    lock[i] = 0;
     i++;
   }
 }
 
-int main(int ac, char** av){
+int main(int ac, char **av){
   if(ac != 2)
-    return 0;
+    return 1;
+
   int size = 0;
   while(av[1][size])
     size++;
-  char *buffer = calloc(size + 1, sizeof(char));
-  permutations(av[1], buffer, size, 0);
+  char buffer[size + 1];
+  buffer[size] = '\0';
+  int lock[size];
+
+  for(int i = 0; i < size; i++)
+    lock[i] = 0;
+  ft_solve(av[1]);
+  ft_queens(av[1], buffer, lock, size, 0);
 }

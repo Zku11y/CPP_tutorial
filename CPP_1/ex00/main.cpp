@@ -1,8 +1,8 @@
 #include "Zombie.hpp"
 
 int main(){
-    Zombie* z = newZombie("nigger");
+    Zombie* z = newZombie("bruuuuh");
     z->announce();
-    randomChump("random_nigger");
+    randomChump("bruuuuuh but random");
     delete(z);
 }

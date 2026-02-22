@@ -1,165 +1,84 @@
-#include <stdio.h>
-#include <unistd.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <stdio.h>
 #include <stdbool.h>
 #include <sys/wait.h>
 
-int ft_ex(char **cmd, int *io){
+int ft_exec(char **cmds, int r, int w, int unused){
   pid_t pid = fork();
-  if(pid < 0)
-    return 1;
+  if(pid < 0) return 1;
   if(pid == 0){
+    if(dup2(r, STDIN_FILENO) == -1) exit(EXIT_FAILURE);
+    if(dup2(w, STDOUT_FILENO) == -1) exit(EXIT_FAILURE);
 
-    if(io[0] != 0){
-      if(dup2(io[0], STDIN_FILENO) == -1)
-        exit(EXIT_FAILURE);
-      close(io[0]);
-    }
+    if(r != STDIN_FILENO) close(r);
+    if(w != STDOUT_FILENO) close(w);
+    if(unused != -1) close(unused);
 
-    if(io[1] != 1){
-      if(dup2(io[1], STDOUT_FILENO) == -1)
-        exit(EXIT_FAILURE);
-      close(io[1]);
-    }
-
-    if(execvp(cmd[0], cmd) == -1)
-      exit(EXIT_FAILURE);
+    if(execvp(cmds[0], cmds) == -1) exit(EXIT_FAILURE);
   }
   return 0;
+}
+
+void wait_children(){
+  while(wait(NULL) > 0);
 }
 
 int picoshell(char **cmds[]){
-  int fd0[2];
-  int fd1[2];
-  int io[2];
-  bool pip = true;
-
-  int i = 0;
-
-    if(!cmds[1]){
-      pid_t pid = fork();
-      if(pid < 0)
-        return 1;
-      if(pid == 0){
-        execvp(cmds[0][0], cmds[0]);
-        exit(-1);
-      }
-      wait(NULL);
-      return 0;
-    }
-
-
-  while(cmds[i]){
-    
-    if(i == 0){
-      io[0] = 0;
-      if(pipe(fd0) == -1) return 1;
-      io[1] = fd0[1];
-      if(ft_ex(cmds[i], io) == 1) return 1;
-      if(io[1] != 1) close(io[1]);
-      i++;
-      continue;
-    }
+  int p1[2];
+  int p2[2];
+  bool p = true;
   
-  if(!cmds[i + 1]){
-      io[1] = 1;
-      if(pip)
-        io[0] = fd0[0];
-      else
-        io[0] = fd1[0];
-      if(ft_ex(cmds[i], io) == 1)
-        return 1;
-      if(io[0] != 0)
-        close(io[0]);
-      i++;
-      continue;
+  if(!cmds) return 1;
+
+  if(!cmds[1]){
+    pid_t pid = fork();
+    if(pid < 0) return 1;
+    if(pid == 0){
+      if(execvp(cmds[0][0], cmds[0]) == -1)
+        exit(EXIT_FAILURE);
+    }
+    wait(NULL);
+    return 0;
+  }
+  int i = 0;
+  if(pipe(p1) == -1) return 1;
+  if(ft_exec(cmds[0], STDIN_FILENO, p1[1], p1[0]) == 1) return 1;
+  close(p1[1]);
+  i++;
+
+  while(cmds[i + 1]){
+
+    if(p){ 
+      if(pipe(p2) == -1) return (close(p1[0]), wait_children(), 1);
+      if(ft_exec(cmds[i], p1[0], p2[1], p2[0]) == 1) return 1;
+      close(p1[0]);
+      close(p2[1]);
     }
 
-    if(pip == true){
-      io[0] = fd0[0];
-      if(pipe(fd1) == -1) return 1;
-      io[1] = fd1[1];
-    }
     else{
-      io[0] = fd1[0];
-      if(pipe(fd0) == -1) return 1;
-      io[1] = fd0[1];
+      if(pipe(p1) == -1) return (close(p2[0]), wait_children(), 1);
+      if(ft_exec(cmds[i], p2[0], p1[1], p1[0]) == 1) return 1;
+      close(p2[0]);
+      close(p1[1]);
     }
 
-    if(ft_ex(cmds[i], io) == 1)
-      return 1;
-
-    if(io[0] != 0)
-      close(io[0]);
-    if(io[1] != 1)
-      close(io[1]);
-
-    pip = !pip;
+    p = !p;
     i++;
   }
-  int j = 0;
-  while(cmds[j]){
-    wait(NULL);
-    j++;
+
+  if(p){
+    if(ft_exec(cmds[i], p1[0], STDOUT_FILENO, -1) == 1) return 1;
+    close(p1[0]);
   }
+  else{
+    if(ft_exec(cmds[i], p2[0], STDOUT_FILENO, -1) == 1) return 1;
+    close(p2[0]);
+  }
+
+  while(wait(NULL) > 0);
   return 0;
 }
-
-
-
-int ft_picoshell(char **cmds[])
-{
-    if (!cmds)
-        return -1;
-    
-    int s=0;
-    while(cmds[s])
-        s++;
-    
-    int t[s-1][2];
-    for(int i=0; i<s-1; i++)
-        if(pipe(t[i])==-1)
-            return -1;
-    
-    int i=0;
-    pid_t pid;
-    while(i<s)
-    {
-        pid=fork();
-        if(pid==-1)
-            exit(1);
-        else if(pid==0)
-        {
-            if(i==0)
-                dup2(t[i][1], 1);
-            else if(i==s-1)
-                dup2(t[i-1][0],0);
-            else{
-                dup2(t[i-1][0], 0);
-                dup2(t[i][1], 1);
-            }
-            
-            for(int i=0; i<s-1; i++){
-                close(t[i][0]);    
-                close(t[i][1]);    
-            }
-            execvp(cmds[i][0], cmds[i]);
-            exit(-1);
-        }
-        i++; 
-    }
-
-    for(int i=0; i<s-1; i++){
-        close(t[i][0]);    
-        close(t[i][1]);    
-    }
-
-    for(int i=0; i<s; i++)
-        wait(NULL);
-    
-    return 0;
-}
-
 
 
 int main()

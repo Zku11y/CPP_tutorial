@@ -6,37 +6,46 @@
 #include <stdbool.h>
 
 int sandbox(void (*f)(void), unsigned int timeout, bool verbose){
-  pid_t child;
-  int status;
-  int res;
-
-  child = fork();
-  if(child < 0) return -1;
-  if(child == 0){
+  pid_t pid = fork();
+  if(pid < 0)
+    return -1;
+  if(pid == 0){
     alarm(timeout);
     f();
     exit(0);
   }
-  
-  alarm(timeout);
-  res = waitpid(child, &status, 0);
-  if(res == -1){
+
+  int status;
+  if(waitpid(pid, &status, 0) == -1)
     return -1;
-  }
-  if(res == child){
-    if(WIFEXITED(status)){
-      if(WEXITSTATUS(status) == 0)
-        return(printf("Nice function!\n"), 1);
-      else if(WEXITSTATUS(status) == SIGALRM)
-        return 
-      printf("Bad function: exited with code %d\n", WEXITSTATUS(status));
+  
+  if(WIFEXITED(status)){
+    int code = WEXITSTATUS(status);
+    if(code == 0){
+      if(verbose)
+        printf("Nice function!\n");
+      return 1;
+    }
+    else{
+      if(verbose)
+        printf("exited with code %d\n", code);
       return 0;
     }
-    else if(WIFSIGNALED(status)){
-      printf("Bad function: %s\n", strsignal(WTERMSIG(status)));
-      return 0;
-    }
   }
+
+  if(WIFSIGNALED(status)){
+    int code = WTERMSIG(status);
+    if(code == SIGALRM){
+      if(verbose)
+        printf("Bad function: timed out after %d seconds\n", timeout);
+    }
+    else{
+      if(verbose)
+        printf("Bad function: %s\n", strsignal(code));
+    }
+    return 0;
+  }
+
   return -1;
 }
 
