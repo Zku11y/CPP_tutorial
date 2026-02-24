@@ -22,5 +22,5 @@ Brain &Brain::operator=(const Brain &other){
 }
 
 Brain::~Brain(){
-    std::cout << "Brain's Default Destructor called\n";
+    std::cout << "Brain's Destructor called\n";
 }

@@ -4,17 +4,17 @@
 #include "WrongCat.hpp"
 #include "Dog.hpp"
 
-#include "Animal.hpp"
-#include "Dog.hpp"
-#include "Cat.hpp"
-#include "WrongAnimal.hpp"
-#include "WrongCat.hpp"
-#include "Brain.hpp"
-#include <iostream>
+int main()
+{
+    Animal *animals[10];
+    for(int i = 0; i < 5; i++)
+        animals[i] = new Dog();
+    for(int i = 5; i < 10; i++)
+        animals[i] = new Cat();
 
-int main(){
+    for(int i = 0; i < 10; i++)
+        animals[i]->makeSound();
 
-    
-
-    return 0;
+    for(int i = 0; i < 10; i++)
+        delete(animals[i]);
 }
