@@ -1,6 +1,6 @@
-NAME = abstract
+NAME = materia
 
-SRC = ./Animal.cpp ./Cat.cpp ./Dog.cpp ./WrongAnimal.cpp ./WrongCat.cpp ./Brain.cpp ./main.cpp
+SRC = ./AMateria.cpp ./Character.cpp ./Cure.cpp ./Ice.cpp ./MateriaSource.cpp ./main.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
@@ -11,7 +11,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	c++ $(FLAGS) $(OBJ) -o $(NAME)
 
-%.o: %.cpp ./Animal.hpp ./Cat.hpp ./Dog.hpp ./WrongAnimal.hpp ./WrongCat.hpp ./Brain.hpp
+%.o: %.cpp ./AMateria.hpp ./Character.hpp ./ICharacter.hpp ./Cure.hpp ./Ice.hpp ./MateriaSource.hpp ./IMateriaSource.hpp
 	c++ $(FLAGS) -c $< -o $@
 
 clean:

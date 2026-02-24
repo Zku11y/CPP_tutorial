@@ -1,15 +1,9 @@
 #include "Ice.hpp"
 
-Ice::Ice(): AMateria("ice"){
-    std::cout << "Ice default constructor called\n";
-}
-
 Ice::Ice(std::string const &type): AMateria(type){
-    std::cout << "Ice Param constructor called\n";
 }
 
 Ice::Ice(const Ice &other): AMateria(other){
-    std::cout << "Ice Copy constructor called\n";
 }
 
 Ice &Ice::operator=(const Ice &other){
@@ -20,7 +14,6 @@ Ice &Ice::operator=(const Ice &other){
 }
 
 Ice::~Ice(){
-    std::cout << "Ice destructor called\n";
 }
 
 AMateria *Ice::clone() const{
