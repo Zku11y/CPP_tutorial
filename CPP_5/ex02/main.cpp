@@ -1,5 +1,5 @@
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "AForm.hpp"
 #include <exception>
 
 int main(){
@@ -7,7 +7,7 @@ int main(){
     Bureaucrat Mr_dude("Mr_dude", 5);
     std::cout << Mr_dude << std::endl;
 
-    Form NDA("Rockstar Games Contract", 100, 50);
+    AForm NDA("Rockstar Games Contract", 100, 50);
 
     Bureaucrat Ms_girl("Ms_girl", 120);
     std::cout << Ms_girl << std::endl;
