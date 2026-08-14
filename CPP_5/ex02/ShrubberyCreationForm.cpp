@@ -2,7 +2,7 @@
 #include <fstream>
 #include <stdexcept>
 
-ShrubberyCreationForm::ShrubberyCreationForm(std::string &target)
+ShrubberyCreationForm::ShrubberyCreationForm(std::string target)
   : AForm("ShrubberyCreationForm", 145, 137), target(target){
   }
 

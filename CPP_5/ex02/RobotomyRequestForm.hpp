@@ -6,7 +6,7 @@ private:
   std::string target;
 
 public:
-  RobotomyRequestForm(std::string &target);
+  RobotomyRequestForm(std::string target);
   RobotomyRequestForm(RobotomyRequestForm const &other);
   RobotomyRequestForm &operator=(RobotomyRequestForm const &other);
   virtual ~RobotomyRequestForm();  

@@ -28,9 +28,7 @@ public:
   bool IsSigned() const;
   void beSigned(Bureaucrat const &bro);
 
-  void execute(Bureaucrat const &executor);
-
-  virtual void exec_action() const = 0;
+  void execute(Bureaucrat const &executor) const;
 
   class GradeTooHighException : public std::exception{
   private:
@@ -59,6 +57,9 @@ public:
   public:
     const char* what() const throw();
   };
+
+
+  virtual void exec_action() const = 0;
 
 };
 

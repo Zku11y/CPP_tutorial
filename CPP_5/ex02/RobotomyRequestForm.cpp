@@ -1,8 +1,10 @@
 #include "RobotomyRequestForm.hpp"
+#include <cstdlib>
+#include <ctime>
 #include <fstream>
 #include <stdexcept>
 
-RobotomyRequestForm::RobotomyRequestForm(std::string &target)
+RobotomyRequestForm::RobotomyRequestForm(std::string target)
   : AForm("RobotomyRequestForm", 72, 45), target(target){
   }
 
@@ -23,14 +25,13 @@ RobotomyRequestForm::~RobotomyRequestForm(){
 }
 
 void RobotomyRequestForm::exec_action() const {
-  std::string file_name = this->target + "_shrubbery";
 
-  std::ofstream outfile(file_name.c_str());
-
-  if(!outfile.is_open())
-    throw std::runtime_error("why yo file tweekin boi");
-
-  outfile << DA_TREE;
-
-  outfile.close();
+  srand(time(0));
+  
+  int val = rand() % 100;
+  
+  if(val < 50)
+    std::cout << this->target << "'s Robotomy is a fucking success :D\n";
+  else
+    std::cout << this->target << "'s Robotomy fucking failed D:\n";
 }

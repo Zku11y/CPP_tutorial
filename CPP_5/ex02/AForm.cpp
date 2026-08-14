@@ -4,16 +4,17 @@
 #include <string>
 
 
-void AForm::execute(Bureaucrat const &executor){
+void AForm::execute(Bureaucrat const &executor) const{
   if(!this->IsSigned()){
-    throw AForm::FormNotSignedException();
-  }
+   throw AForm::GradeTooLowException("Form is not signed yet!");
+ }
 
   if(executor.getGrade() > this->exec_grade){
-    throw AForm::GradeTooLowException("Grade not High enough to execute Form!");
+    std::string ss = executor.getName() + "'s Grade not High enough to execute Form!\n";
+    throw AForm::GradeTooLowException(ss.c_str());
   }
 
-  AForm::exec_action();
+  exec_action();
 }
 
 
