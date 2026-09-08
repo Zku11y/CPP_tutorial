@@ -1,3 +1,6 @@
+#ifndef BASE_HPP
+#define BASE_HPP
+
 #include <iostream>
 #include <ctime>
 #include <sys/time.h>
@@ -27,3 +30,5 @@ public:
 Base *generate(void);
 void identify(Base *p);
 void identify(Base &p);
+
+#endif
