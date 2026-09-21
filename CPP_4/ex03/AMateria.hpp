@@ -12,9 +12,8 @@ protected:
     std::string type;
 
 public:
-    AMateria();
     AMateria(AMateria const &other);
-    AMateria(std::string const &type);
+    AMateria(std::string const &type = "None");
     AMateria &operator=(AMateria const &other);
     virtual ~AMateria();
 

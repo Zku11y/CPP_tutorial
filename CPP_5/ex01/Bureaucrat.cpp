@@ -1,6 +1,6 @@
 #include "Bureaucrat.hpp"
 #include "Form.hpp"
-
+#include <iostream>
 
 void Bureaucrat::signForm(Form &form){
   try{
@@ -8,7 +8,7 @@ void Bureaucrat::signForm(Form &form){
     std::cout << this->name << " signed " << form.getName() << std::endl;
   }
   catch(std::exception &e){
-    std::cout << this->name << " couldn't sign " << form.getName() << " because " << e.what() << std::endl;
+    std::cout << this->name << " couldn't sign " << form.getName() << " because " << e.what() << ".\n";
   }
 }
 
@@ -24,16 +24,6 @@ const char* Bureaucrat::GradeTooHighException::what() const throw(){
   return msg.c_str();
 }
 
-Bureaucrat::GradeTooHighException::~GradeTooHighException() throw(){
-  
-}
-
-
-Bureaucrat::GradeTooLowException::~GradeTooLowException() throw(){
-  
-}
-
-
 Bureaucrat::GradeTooLowException::GradeTooLowException(){
   msg = "Bureaucrat Grade is too Low! (Lowest is 150)";
 }
@@ -45,6 +35,14 @@ const char* Bureaucrat::GradeTooLowException::what() const throw(){
   return msg.c_str();
 }
 
+Bureaucrat::GradeTooHighException::~GradeTooHighException() throw(){
+  
+}
+
+Bureaucrat::GradeTooLowException::~GradeTooLowException() throw(){
+  
+}
+
 Bureaucrat::Bureaucrat(std::string name, int grade): name(name){
   if(grade < 1)
     throw Bureaucrat::GradeTooHighException();
@@ -53,7 +51,12 @@ Bureaucrat::Bureaucrat(std::string name, int grade): name(name){
   this->grade = grade;
 }
 
+Bureaucrat::Bureaucrat(): name("Bureaucrat"), grade(150){
+
+}
+
 Bureaucrat::Bureaucrat(Bureaucrat const &other): name(other.name), grade(other.grade){
+
 }
 
 Bureaucrat &Bureaucrat::operator=(Bureaucrat const &other){
@@ -72,6 +75,20 @@ std::string Bureaucrat::getName() const{
 
 int Bureaucrat::getGrade() const{
   return grade;
+}
+
+void Bureaucrat::incr_Grade() {
+  if(grade <= 1)
+    throw Bureaucrat::GradeTooHighException(
+      "Can't increment because the grade is too high! (Highest is 1)");
+  grade--;
+}
+
+void Bureaucrat::decr_Grade() {
+  if(grade >= 150)
+    throw Bureaucrat::GradeTooLowException(
+      "Can't decrement because the grade is too low! (Lowest is 150)");
+  grade++;
 }
 
 std::ostream &operator<<(std::ostream &os, const Bureaucrat &bureaucrat){

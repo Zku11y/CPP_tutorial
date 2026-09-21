@@ -1,6 +1,9 @@
 #include "ShrubberyCreationForm.hpp"
 #include <fstream>
-#include <stdexcept>
+
+ShrubberyCreationForm::ShrubberyCreationForm(): target("ShrubberyCreationForm"){
+  
+}
 
 ShrubberyCreationForm::ShrubberyCreationForm(std::string target)
   : AForm("ShrubberyCreationForm", 145, 137), target(target){
@@ -28,7 +31,7 @@ void ShrubberyCreationForm::exec_action() const {
   std::ofstream outfile(file_name.c_str());
 
   if(!outfile.is_open())
-    throw std::runtime_error("why yo file tweekin boi");
+    throw std::runtime_error("the file ain't filing bro...");
 
   outfile << DA_TREE;
 

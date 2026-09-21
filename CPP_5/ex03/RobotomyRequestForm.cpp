@@ -1,8 +1,10 @@
 #include "RobotomyRequestForm.hpp"
-#include <cstdlib>
+#include <iostream>
 #include <ctime>
-#include <fstream>
-#include <stdexcept>
+
+RobotomyRequestForm::RobotomyRequestForm(): target("RobotomyRequestForm"){
+
+}
 
 RobotomyRequestForm::RobotomyRequestForm(std::string target)
   : AForm("RobotomyRequestForm", 72, 45), target(target){
@@ -31,7 +33,7 @@ void RobotomyRequestForm::exec_action() const {
   int val = rand() % 100;
   
   if(val < 50)
-    std::cout << this->target << "'s Robotomy is a fucking success :D\n";
+    std::cout << this->target << "'s Robotomy is a success :D\n";
   else
-    std::cout << this->target << "'s Robotomy fucking failed D:\n";
+    std::cout << this->target << "'s Robotomy failed D:\n";
 }

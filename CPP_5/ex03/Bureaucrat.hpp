@@ -2,7 +2,6 @@
 #define BUREAUCRAT_HPP
 
 #include <exception>
-#include <iostream>
 #include <ostream>
 #include <string>
 
@@ -10,6 +9,7 @@ class AForm;
 
 class Bureaucrat{
 public:
+  Bureaucrat();
   Bureaucrat(std::string name, int grade);
   Bureaucrat(Bureaucrat const &other);
   Bureaucrat &operator=(Bureaucrat const &other);
@@ -17,6 +17,8 @@ public:
 
   std::string getName() const;
   int getGrade() const;
+  void incr_Grade();
+  void decr_Grade();
   void signForm(AForm &form);
   void executeForm(AForm const & form) const;
 

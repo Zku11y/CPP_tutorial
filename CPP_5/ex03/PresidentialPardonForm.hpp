@@ -1,3 +1,6 @@
+#ifndef PRESIDENTIALPARDONFORM_HPP
+#define PRESIDENTIALPARDONFORM_HPP
+
 #include "AForm.hpp"
 
 
@@ -6,6 +9,7 @@ private:
   std::string target;
 
 public:
+  PresidentialPardonForm();
   PresidentialPardonForm(std::string target);
   PresidentialPardonForm(PresidentialPardonForm const &other);
   PresidentialPardonForm &operator=(PresidentialPardonForm const &other);
@@ -13,3 +17,5 @@ public:
 
   virtual void exec_action() const;
 };
+
+#endif

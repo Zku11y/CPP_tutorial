@@ -5,7 +5,7 @@
 
 
 void AForm::execute(Bureaucrat const &executor) const{
-  if(!this->IsSigned()){
+  if(!this->isSigned()){
    throw AForm::GradeTooLowException("Form is not signed yet!");
  }
 
@@ -24,6 +24,10 @@ AForm::AForm(std::string name, int sign_grade, int exec_grade):
       throw AForm::GradeTooHighException();
   else if(this->sign_grade > 150 || this->exec_grade > 150)
       throw AForm::GradeTooLowException();
+}
+
+AForm::AForm(): name("Form"), is_signed(false), sign_grade(150), exec_grade(150){
+
 }
 
 AForm::AForm(AForm const &other):
@@ -89,7 +93,7 @@ int AForm::getExecGrade() const{
   return exec_grade;
 }
 
-bool AForm::IsSigned() const{
+bool AForm::isSigned() const{
   return is_signed;
 }
 
@@ -105,6 +109,6 @@ void AForm::beSigned(Bureaucrat const &bro){
 
 std::ostream &operator<<(std::ostream& os, AForm const &form){
   os << form.getName() << ", sign grade: " << form.getSignGrade() <<
-  ", exec grade: " << form.getExecGrade() << ", is signed: " << form.IsSigned();
+  ", exec grade: " << form.getExecGrade() << ", is signed: " << form.isSigned();
   return os;
 }

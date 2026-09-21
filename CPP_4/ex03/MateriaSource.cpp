@@ -4,9 +4,11 @@ MateriaSource::MateriaSource(){
     for(int i = 0; i < 4; i++){
         inv[i] = 0;
     }
+    std::cout << "MateriaSource Default constructor called\n";
 }
 
 MateriaSource::MateriaSource(MateriaSource const &other){
+    std::cout << "MateriaSource Copy constructor called\n";
 
         for(int i = 0; i < 4; i++){
             if(other.inv[i]){
@@ -19,6 +21,7 @@ MateriaSource::MateriaSource(MateriaSource const &other){
 }
 
 MateriaSource &MateriaSource::operator=(MateriaSource const &other){
+    std::cout << "MateriaSource Copy assignment operator called\n";
     if(this != &other){
 
         for(int i = 0; i < 4; i++){
@@ -37,6 +40,7 @@ MateriaSource &MateriaSource::operator=(MateriaSource const &other){
 }
 
 MateriaSource::~MateriaSource(){
+    std::cout << "MateriaSource Default destructor called\n";
     for(int i = 0; i < 4; i++){
         if(inv[i])
             delete(inv[i]);

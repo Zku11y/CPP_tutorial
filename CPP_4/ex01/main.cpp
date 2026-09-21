@@ -1,3 +1,5 @@
+#include <iostream>
+#include <string>
 #include "Animal.hpp"
 #include "WrongAnimal.hpp"
 #include "Cat.hpp"
@@ -6,15 +8,30 @@
 
 int main()
 {
-    Animal *animals[10];
-    for(int i = 0; i < 5; i++)
-        animals[i] = new Dog();
-    for(int i = 5; i < 10; i++)
-        animals[i] = new Cat();
+    const Animal* j = new Dog();
+    const Animal* i = new Cat();
 
-    for(int i = 0; i < 10; i++)
-        animals[i]->makeSound();
+    Animal* animals[10];
 
-    for(int i = 0; i < 10; i++)
-        delete(animals[i]);
+    for (int k = 0; k < 5; k++)
+        animals[k] = new Dog();
+    for (int k = 5; k < 10; k++)
+        animals[k] = new Cat();
+
+    Dog dogA;
+    Dog dogB(dogA);
+    Dog dogC;
+    dogC = dogA;
+
+    Cat catA;
+    Cat catB(catA);
+    Cat catC;
+    catC = catA;
+
+    for (int k = 0; k < 10; k++)
+        delete animals[k];
+    delete j;
+    delete i;
+
+    return 0;
 }

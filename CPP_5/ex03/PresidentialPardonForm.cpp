@@ -1,8 +1,9 @@
 #include "PresidentialPardonForm.hpp"
-#include <cstdlib>
-#include <ctime>
-#include <fstream>
-#include <stdexcept>
+#include <iostream>
+
+PresidentialPardonForm::PresidentialPardonForm(): target("PresidentialPardonForm"){
+
+}
 
 PresidentialPardonForm::PresidentialPardonForm(std::string target)
   : AForm("PresidentialPardonForm", 25, 5), target(target){

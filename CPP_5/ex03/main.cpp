@@ -1,43 +1,90 @@
 #include "Bureaucrat.hpp"
-#include "ShrubberyCreationForm.hpp"
-#include "PresidentialPardonForm.hpp"
-#include "RobotomyRequestForm.hpp"
 #include "Intern.hpp"
-#include <exception>
+#include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
+#include <iostream>
 
 int main(){
-  try{ 
-    Bureaucrat Mr_dude("Mr_dude", 50);
-    std::cout << Mr_dude << std::endl;
+  try{
+    std::cout << "---------------------------------------------" << std::endl;
+    std::cout << "TEST 1: Intern creates ShrubberyCreationForm" << std::endl;
+    std::cout << "---------------------------------------------\n\n";
 
-    Intern randomintern;
+    Intern someRandomIntern;
+    AForm* form = someRandomIntern.makeForm("shrubbery creation", "Gardening License");
+    Bureaucrat Mr_Gardener("Mr_Gardener", 130);
+    std::cout << "Bureaucrat: " << Mr_Gardener << std::endl;
 
-    AForm *forms[5];
-    forms[0] = randomintern.makeForm("shruberry creation", "GardenTS");
-    forms[1] = randomintern.makeForm("robotomy request", "Nigger");
-    forms[2] = randomintern.makeForm("presidential pardon", "sori bro");
-    forms[3] = randomintern.makeForm("robotomy request", "3tiw Lyassine mnyoun");
-    forms[4] = randomintern.makeForm("presidential pardon", "white people");
-    
+    if (form) {
+      std::cout << *form << std::endl;
+      Mr_Gardener.signForm(*form);
+      Mr_Gardener.executeForm(*form);
+      delete form;
+    }
 
-    Bureaucrat Ms_girl("Ms_girl", 120);
-    std::cout << Ms_girl << std::endl;
-
-    Mr_dude.signForm(*forms[0]);
-    
-    Mr_dude.signForm(*forms[1]);
-
-    Mr_dude.signForm(*forms[2]);
-
-    Mr_dude.executeForm(*forms[0]);
-
-    Mr_dude.executeForm(*forms[1]);
-
-    Mr_dude.executeForm(*forms[2]);
-
+  }catch(std::exception &e){
+    std::cout << e.what() << std::endl;
   }
-  catch(std::exception &e){
-  std::cout << e.what() << std::endl;
+
+  try{
+    std::cout << "\n---------------------------------------------" << std::endl;
+    std::cout << "TEST 2: Intern creates RobotomyRequestForm" << std::endl;
+    std::cout << "---------------------------------------------\n\n";
+
+    Intern someRandomIntern;
+    AForm* form = someRandomIntern.makeForm("robotomy request", "Bender");
+    Bureaucrat Mr_Scientist("Mr_Scientist", 40);
+    std::cout << "Bureaucrat: " << Mr_Scientist << std::endl;
+
+    if (form) {
+      std::cout << *form << std::endl;
+      Mr_Scientist.signForm(*form);
+      Mr_Scientist.executeForm(*form);
+      delete form;
+    }
+
+  }catch(std::exception &e){
+    std::cout << e.what() << std::endl;
   }
+
+  try{
+    std::cout << "\n---------------------------------------------" << std::endl;
+    std::cout << "TEST 3: Intern creates PresidentialPardonForm" << std::endl;
+    std::cout << "---------------------------------------------\n\n";
+
+    Intern someRandomIntern;
+    AForm* form = someRandomIntern.makeForm("presidential pardon", "Official Pardon");
+    Bureaucrat Mr_President("Mr_President", 4);
+    std::cout << "Bureaucrat: " << Mr_President << std::endl;
+
+    if (form) {
+      std::cout << *form << std::endl;
+      Mr_President.signForm(*form);
+      Mr_President.executeForm(*form);
+      delete form;
+    }
+
+  }catch(std::exception &e){
+    std::cout << e.what() << std::endl;
+  }
+
+  try{
+    std::cout << "\n---------------------------------------------" << std::endl;
+    std::cout << "TEST 4: Intern tries to create an unknown form" << std::endl;
+    std::cout << "---------------------------------------------\n\n";
+
+    Intern someRandomIntern;
+    AForm* form = someRandomIntern.makeForm("some invalid form", "Nobody");
+
+    if (form) {
+      std::cout << *form << std::endl;
+      delete form;
+    }
+
+  }catch(std::exception &e){
+    std::cout << e.what() << std::endl;
+  }
+
   return 0;
 }

@@ -1,7 +1,7 @@
 #include "Bureaucrat.hpp"
 #include "AForm.hpp"
 #include <exception>
-
+#include <iostream>
 
 void Bureaucrat::executeForm(AForm const & form) const{
   try{
@@ -64,6 +64,10 @@ Bureaucrat::Bureaucrat(std::string name, int grade): name(name){
   this->grade = grade;
 }
 
+Bureaucrat::Bureaucrat(): name("Bureaucrat"), grade(150){
+
+}
+
 Bureaucrat::Bureaucrat(Bureaucrat const &other): name(other.name), grade(other.grade){
 }
 
@@ -83,6 +87,20 @@ std::string Bureaucrat::getName() const{
 
 int Bureaucrat::getGrade() const{
   return grade;
+}
+
+void Bureaucrat::incr_Grade() {
+  if(grade <= 1)
+    throw Bureaucrat::GradeTooHighException(
+      "Can't increment because the grade is too high! (Highest is 1)");
+  grade--;
+}
+
+void Bureaucrat::decr_Grade() {
+  if(grade >= 150)
+    throw Bureaucrat::GradeTooLowException(
+      "Can't decrement because the grade is too low! (Lowest is 150)");
+  grade++;
 }
 
 std::ostream &operator<<(std::ostream &os, const Bureaucrat &bureaucrat){

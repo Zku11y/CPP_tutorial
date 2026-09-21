@@ -1,9 +1,7 @@
 #include "Bureaucrat.hpp"
-#include <ostream>
-#include <pthread.h>
 
 Bureaucrat::GradeTooHighException::GradeTooHighException(){
-  msg = "Bureaucrat Grade is too High! (Highest is 1)";
+  msg = "Bureaucrat's Grade is too High! (Highest is 1)";
 }
 
 Bureaucrat::GradeTooHighException::GradeTooHighException(std::string msg): msg(msg){
@@ -17,14 +15,8 @@ Bureaucrat::GradeTooHighException::~GradeTooHighException() throw(){
   
 }
 
-
-Bureaucrat::GradeTooLowException::~GradeTooLowException() throw(){
-  
-}
-
-
 Bureaucrat::GradeTooLowException::GradeTooLowException(){
-  msg = "Bureaucrat Grade is too Low! (Lowest is 150)";
+  msg = "Bureaucrat's Grade is too Low! (Lowest is 150)";
 }
 
 Bureaucrat::GradeTooLowException::GradeTooLowException(std::string msg): msg(msg){
@@ -34,12 +26,20 @@ const char* Bureaucrat::GradeTooLowException::what() const throw(){
   return msg.c_str();
 }
 
+Bureaucrat::GradeTooLowException::~GradeTooLowException() throw(){
+  
+}
+
 Bureaucrat::Bureaucrat(std::string name, int grade): name(name){
   if(grade < 1)
     throw Bureaucrat::GradeTooHighException();
   else if(grade > 150)
     throw Bureaucrat::GradeTooLowException();
   this->grade = grade;
+}
+
+Bureaucrat::Bureaucrat(): name("Bureaucrat"), grade(150){
+
 }
 
 Bureaucrat::Bureaucrat(Bureaucrat const &other): name(other.name), grade(other.grade){
@@ -63,7 +63,21 @@ int Bureaucrat::getGrade() const{
   return grade;
 }
 
+void Bureaucrat::incr_Grade() {
+  if(grade <= 1)
+    throw Bureaucrat::GradeTooHighException(
+      "Can't increment because the grade is too high! (Highest is 1)");
+  grade--;
+}
+
+void Bureaucrat::decr_Grade() {
+  if(grade >= 150)
+    throw Bureaucrat::GradeTooLowException(
+      "Can't decrement because the grade is too low! (Lowest is 150)");
+  grade++;
+}
+
 std::ostream &operator<<(std::ostream &os, const Bureaucrat &bureaucrat){
-  os << bureaucrat.getName() << ", bureaucrat grade " << bureaucrat.getGrade();
+  os << bureaucrat.getName() << ", bureaucrat grade " << bureaucrat.getGrade() << ".";
   return os;
 }

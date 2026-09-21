@@ -1,15 +1,18 @@
 #include "Character.hpp"
 
 Character::Character(std::string name): name(name), sk_floor_i(0){
+    std::cout << "Character Default constructor called\n";
 
     for(int i = 0; i < 4; i++)
         inv[i] = 0;
 
     for(int i = 0; i < 100; i++)
         sk_floor[i] = 0;
+
 }
 
 Character::Character(Character const &other): name(other.name), sk_floor_i(other.sk_floor_i){
+    std::cout << "Character Copy constructor called\n";
 
     for(int i = 0; i < 4; i++){
         if(other.inv[i])
@@ -25,10 +28,10 @@ Character::Character(Character const &other): name(other.name), sk_floor_i(other
             sk_floor[i] = 0;
     }
 
-
 }
 
 Character &Character::operator=(Character const &other){
+    std::cout << "Character Copy assignment operator called\n";
 
     if(this != &other){
 
@@ -55,11 +58,11 @@ Character &Character::operator=(Character const &other){
         }
 
     }
-
     return (*this);
 }
 
 Character::~Character(){
+    std::cout << "Character Default destructor called\n";
     for(int i = 0; i < 4; i++){
         if(inv[i])
             delete inv[i];

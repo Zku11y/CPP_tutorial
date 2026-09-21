@@ -2,7 +2,6 @@
 #define FORM_HPP
 
 #include <exception>
-#include <iostream>
 #include <ostream>
 #include <string>
 
@@ -17,6 +16,7 @@ private:
   
     
 public:
+  Form();
   Form(std::string name, int sign_grade, int exec_grade);
   Form(Form const &other);
   Form &operator=(Form const &other);
@@ -25,7 +25,7 @@ public:
   std::string getName() const;
   int getSignGrade() const;
   int getExecGrade() const;
-  bool IsSigned() const;
+  bool isSigned() const;
   void beSigned(Bureaucrat const &bro);
 
   class GradeTooHighException : public std::exception{
