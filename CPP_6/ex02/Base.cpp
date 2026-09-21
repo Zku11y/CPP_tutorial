@@ -15,52 +15,63 @@ long long get_time_ms(){
 
 Base *generate(void){
 
-  long long t = get_time_ms();
+    static bool seeded = false;
 
-    t = (t + 6568) * 32;
+    if(!seeded){
+      std::srand(get_time_ms());
+      seeded = true;
+    }
 
-  int result = t % 100;
+  int result = std::rand() % 3;
 
-  if(result < 30)
+  if(result == 0)
     return (new A);
-  else if(result < 60)
+  else if(result == 1)
     return (new B);
   else
     return (new C);    
 }
 
 void identify(Base *p){
-  if(A* a = dynamic_cast<A *>(p))
-    {std::cout << "Class Type : A\n"; return (void)a;}
-  if(B* b = dynamic_cast<B *>(p))
-    {std::cout << "Class Type : B\n"; return (void)b;}
-  if(C* c = dynamic_cast<C *>(p))
-    {std::cout << "Class Type : C\n"; return (void)c;}
+  if(A* a = dynamic_cast<A *>(p)){
+      a->_speak();
+      return ;
+    }
+
+  if(B* b = dynamic_cast<B *>(p)){
+    b->_speak();
+    return ;
+  }
+
+  if(C* c = dynamic_cast<C *>(p)){
+    c->_speak();
+    return ;
+  }
+
+  std::cout << "Unknown Class Type\n";
 }
 
 void identify(Base &p){
 
   try{
     A a = dynamic_cast<A&>(p);
-    std::cout << "Class Type : A\n";
-    (void)a;
+    a._speak();
     return;
-  } catch(...){}
+  } catch(std::exception &e){}
 
   try{
     B b = dynamic_cast<B&>(p);
-    std::cout << "Class Type : B\n";
-    (void)b;
+    b._speak();
     return;
-  } catch(...){}
+  } catch(std::exception &e){}
 
   try{
     C c = dynamic_cast<C&>(p);
-    std::cout << "Class Type : C\n";
-    (void)c;
+    c._speak();
     return;
-  } catch(...){} 
+  } catch(std::exception &e){} 
 
+    std::cout << "Unknown Class Type\n";
 }
 
 void A::_speak(){

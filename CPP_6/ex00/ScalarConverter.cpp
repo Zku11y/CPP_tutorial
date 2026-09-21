@@ -1,13 +1,5 @@
 #include "ScalarConverter.hpp"
-#include <cctype>
-#include <cfloat>
-#include <climits>
-#include <ios>
-#include <limits>
-#include <cstdlib>
-#include <iterator>
-#include <string>
-#include <iomanip>
+
 
 ScalarConverter::ScalarConverter(){
   
@@ -17,23 +9,14 @@ ScalarConverter::ScalarConverter(ScalarConverter const &other){
   (void)other;
 }
 
-ScalarConverter *ScalarConverter::operator=(ScalarConverter const &other){
+ScalarConverter &ScalarConverter::operator=(ScalarConverter const &other){
     if(this == &other)
-      return this;
-    return this;
+      return *this;
+    return *this;
 }
 
 ScalarConverter::~ScalarConverter(){
     
-}
-
-void convert_output(std::string sk_char, std::string sk_int, std::string sk_float, std::string sk_double){
-
-  std::cout << "char : " << sk_char << std::endl;
-  std::cout << "int : " << sk_int << std::endl;
-  std::cout << "float : " << sk_float << ".0f" << std::endl;
-  std::cout << "double : " << sk_double << ".0" << std::endl;
-  
 }
 
 bool check_char(std::string const &literal){
@@ -87,16 +70,22 @@ bool check_double(std::string const &literal){
 }
 
 bool check_infs(std::string const &literal){
-  if(!literal.compare("inf") || !literal.compare("+inf") || !literal.compare("-inf")
-      || !literal.compare("inff") || !literal.compare("+inff") || !literal.compare("-inff")){
+  if(!literal.compare("inf") || !literal.compare("+inf") || !literal.compare("-inf") || !literal.compare("nan")
+      || !literal.compare("inff") || !literal.compare("+inff") || !literal.compare("-inff") || !literal.compare("nanf")){
     std::cout << "char : Impossible\n";
     std::cout << "int : Impossible\n";
-    if(!literal.compare("inf") || !literal.compare("+inf")
-       || !literal.compare("inff") || !literal.compare("+inff")){
-      std::cout << "float : +inff\n";
-      std::cout << "double : +inf\n";
+    if(!literal.compare("inf") || !literal.compare("+inf") || !literal.compare("nan")){
+      std::cout << "float : " << literal << "f\n";
+      std::cout << "double : " << literal << "\n";
       return true;
     }
+    if(!literal.compare("inff") || !literal.compare("+inff") || !literal.compare("nanf")){
+      std::string tmp = literal.substr(0, literal.length() - 1);
+      std::cout << "float : " << tmp << "\n";
+      std::cout << "double : " << literal << "\n";
+      return true;
+    }
+
     std::cout << "float : -inff\n";
     std::cout << "double : -inf\n";
     return true;
@@ -113,14 +102,7 @@ void print_imp(){
 
 }
 
-void ScalarConverter::convert(const std::string &literal){
-
-    if(literal.empty()){ return (print_imp()); }
-
-    if(check_infs(literal)) return;
-    
-    std::cout << std::fixed << std::setprecision(1);
-
+bool case_char(const std::string &literal){
    if(check_char(literal)){
 
    
@@ -131,13 +113,17 @@ void ScalarConverter::convert(const std::string &literal){
     std::cout << "int : " << static_cast<int>(literal[0]) << std::endl;
     std::cout << "float : " << static_cast<float>(literal[0]) << "f" << std::endl;
     std::cout << "double : " << static_cast<double>(literal[0]) << std::endl;
-    return;
+    return true;
   }
 
+  return false;
+}
+
+bool case_int(const std::string &literal){
   if(check_int(literal)){
 
    
-    long double a = std::atof(literal.c_str());
+    long double a = std::strtold(literal.c_str(), NULL);
 
     if(a < CHAR_MIN || a > CHAR_MAX)
       std::cout << "char : Impossible\n";
@@ -157,12 +143,16 @@ void ScalarConverter::convert(const std::string &literal){
       std::cout << "double : impossible\n";
     else
       std::cout << "double : " << static_cast<double>(a) << std::endl;
-    return;
+    return true;
   }
 
+  return false;
+}
+
+bool case_float(const std::string &literal){
   if(check_float(literal)){
 
-  long double a = std::atof(literal.c_str());
+  long double a = std::strtold(literal.c_str(), NULL);
  
     if(a < CHAR_MIN || a > CHAR_MAX)
       std::cout << "char : Impossible\n";
@@ -182,13 +172,16 @@ void ScalarConverter::convert(const std::string &literal){
       std::cout << "double : impossible\n";
     else
       std::cout << "double : " << static_cast<double>(a) << std::endl;
-    return;
+    return true;
  }
 
+  return false;
+}
 
+bool case_double(const std::string &literal){
   if(check_double(literal)){
 
-  long double a = std::atof(literal.c_str());
+  long double a = std::strtold(literal.c_str(), NULL);
   
     if(a < CHAR_MIN || a > CHAR_MAX)
       std::cout << "char : Impossible\n";
@@ -208,9 +201,30 @@ void ScalarConverter::convert(const std::string &literal){
       std::cout << "double : impossible\n";
     else
       std::cout << "double : " << static_cast<double>(a) << std::endl;
-    return;
+    return true;
  }
+
+ return false;
+}
+
+void ScalarConverter::convert(const std::string &literal){
+
+    if(literal.empty()){ return (print_imp()); }
+
+    if(check_infs(literal)) return;
+    
+    std::cout << std::fixed << std::setprecision(1);
+
+
+  if(case_char(literal))
+    return;
+  else if(case_int(literal))
+    return;
+  else if(case_float(literal))
+    return;
+  else if(case_double(literal))
+    return;
+  else
+    print_imp();
  
-  print_imp();
-   
 }

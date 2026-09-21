@@ -11,7 +11,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	c++ $(CFLAGS) $(OBJ) -o $(NAME)
 
-%.o: %.cpp ./Serializer.hpp
+%.o: %.cpp ./Serializer.hpp ./Data.hpp
 	c++ $(CFLAGS) -c $< -o $@
 
 clean:

@@ -2,13 +2,8 @@
 #define SERIALIZER_HPP
 
 #include <iostream>
-#include <stdint.h>
-
-struct Data{
-  std::string name;
-  int         age;
-  float       height;
-};
+#include <cstdint>
+#include "Data.hpp"
 
 
 class Serializer{
@@ -20,7 +15,7 @@ public:
 private:
   Serializer();
   Serializer(Serializer const &other);
-  Serializer *operator=(Serializer const &other);
+  Serializer &operator=(Serializer const &other);
   ~Serializer();
   
 };
